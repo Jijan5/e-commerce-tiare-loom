@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('shipping_kode_pos');
 
             // Detail kustomisasi pesanan
-            $table->string('file_foto')->comment('Path ke file gambar contoh dari customer');
+            $table->json('file_foto')->comment('Path ke file gambar contoh dari customer');
             $table->text('deskripsi')->comment('Deskripsi detail keinginan customer');
 
             // Informasi pesanan lainnya

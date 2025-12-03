@@ -40,6 +40,19 @@ class Order extends Model
         'shipping_tracking_number',
     ];
 
+     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'file_foto' => 'array',
+            'paid_at' => 'datetime',
+        ];
+    }
+
     /**
      * Get the user that owns the order.
      */
