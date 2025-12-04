@@ -45,6 +45,28 @@ class LoginController extends Controller
 
         return redirect('/');
     }
+
+    public function ajaxLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return response()->json([
+                'success' => true,
+                'user' => Auth::user()->only(['nama', 'email', 'no_hp', 'alamat', 'rt_rw', 'provinsi', 'kota_kabupaten', 'kecamatan', 'desa_kelurahan', 'kode_pos'])
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'The provided credentials do not match our records.'
+        ], 422); // 422 Unprocessable Entity
+    }
     /**
      * Redirect the user to the Google authentication page.
      *

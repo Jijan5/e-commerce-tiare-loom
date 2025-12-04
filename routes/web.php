@@ -21,6 +21,7 @@ Route::get('/order/success/{order}', [OrderController::class, 'success'])->name(
 // Authentication Routes
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
+Route::post('ajax/login', [LoginController::class, 'ajaxLogin'])->name('login.ajax');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
