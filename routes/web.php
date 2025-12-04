@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+// use App\Http\Controllers\Admin\Auth\LoginController;
+// use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 
@@ -51,4 +53,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/details', [ProfileController::class, 'updateDetails'])->name('profile.update.details');
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.update.address');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
+});
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Routes for guests (not logged in as admin)
+    Route::middleware('guest:admin')->group(function () {
+        Route::get('login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm'])->name('login');
+        Route::post('login', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('login.submit');
+    });
+
+    // Routes for authenticated admins
+    Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function () {
+        Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::post('logout', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('logout');
+    });
 });
