@@ -10,7 +10,7 @@
 
                 <div class="bg-gray-100 rounded-lg p-4 mt-6 text-left">
                     <p class="text-sm text-gray-700">Order ID:</p>
-                    <p class="text-lg font-mono font-bold text-gray-900">{{ $order->order_number }}</p>
+                    <p class="text-lg font-mono font-bold text-gray-900">#{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</p>
                 </div>
 
                 <div class="mt-6 text-left border-t pt-6">

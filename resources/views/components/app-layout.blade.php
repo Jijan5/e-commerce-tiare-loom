@@ -1,3 +1,4 @@
+@props(['hideNavbar' => false])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -21,7 +22,9 @@
 <body class="bg-gray-70">
 
     {{-- Memanggil komponen navbar yang sudah kita buat --}}
-    <x-navbar />
+    @if (!$hideNavbar)
+        <x-navbar />
+    @endif
 
     {{-- Ini adalah "slot" dimana konten spesifik halaman akan dimasukkan --}}
     {{ $slot }}

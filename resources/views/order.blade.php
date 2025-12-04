@@ -27,6 +27,7 @@
             list-style-type: disc;
             margin-left: 1.25rem;
         }
+
         .trix-content ol {
             list-style-type: decimal;
             margin-left: 1.25rem;
@@ -36,7 +37,8 @@
         <section class="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
             <h1 class="text-4xl font-bold text-center mb-8">Order Your Custom Bag</h1>
 
-            <form action="{{ route('order.store') }}" method="POST" enctype="multipart/form-data" class="max-w-3xl mx-auto">
+            <form action="{{ route('order.store') }}" method="POST" enctype="multipart/form-data"
+                class="max-w-3xl mx-auto">
                 @csrf
 
                 {{-- Informasi Pelanggan (Jika belum login, tampilkan input ini) --}}
@@ -55,7 +57,8 @@
                     </div>
                     <div class="mb-4">
                         <label for="customer_phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number
-                            (WhatsApp number is preferred)</label>
+                            (WhatsApp number is preferred)
+                        </label>
                         <input type="tel" id="customer_phone" name="customer_phone"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
@@ -172,6 +175,16 @@
                         document.getElementById('shipping_rt_rw').value = '{{ Auth::user()->rt_rw }}';
                         document.getElementById('shipping_kode_pos').value = '{{ Auth::user()->kode_pos }}';
                     }
+                    const userAddress = {
+                        provinsi: '{{ Auth::user()->provinsi }}',
+                        kota: '{{ Auth::user()->kota_kabupaten }}',
+                        kecamatan: '{{ Auth::user()->kecamatan }}',
+                        desa: '{{ Auth::user()->desa_kelurahan }}'
+                    };
+                    const hasAddress = !!userAddress.provinsi;
+                @else
+                    const userAddress = null;
+                    const hasAddress = false;
                 @endauth
 
                 // --- Image Preview Logic ---
@@ -212,81 +225,85 @@
                     selectElement.disabled = true;
                 }
 
-                // Load Provinsi
-                fetch(`${apiBaseUrl}provinces.json`)
-                .then(response => response.json())
-                .then(provinces => {
-                    provinces.forEach(provinsi => {
-                        const option = document.createElement('option');
-                        option.value = provinsi.name;
-                        option.dataset.id = provinsi.id;
-                        option.textContent = provinsi.name;
-                        provinsiSelect.appendChild(option);
-                    });
-                });
+                async function populateSelect(selectElement, url, selectedValue = null) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+                        const data = await response.json();
 
-                // Event listener untuk Provinsi
+                        const defaultOptionText = selectElement.querySelector('option').textContent;
+                        selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`;
+
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.name;
+                            option.dataset.id = item.id;
+                            option.textContent = item.name;
+                            selectElement.appendChild(option);
+                        });
+
+                        selectElement.disabled = false;
+
+                        if (selectedValue) {
+                            selectElement.value = selectedValue;
+                        }
+
+                        return selectElement.options[selectElement.selectedIndex]?.dataset.id;
+                    } catch (error) {
+                        console.error('Error populating dropdown:', error);
+                        return null;
+                    }
+                }
+
                 provinsiSelect.addEventListener('change', function() {
-                    resetAndDisable(kotaSelect, 'Pilih Kota/Kabupaten...');
-                    resetAndDisable(kecamatanSelect, 'Pilih Kecamatan...');
-                    resetAndDisable(desaSelect, 'Pilih Desa/Kelurahan...');
+                    resetAndDisable(kotaSelect, '-- Choose City/District --');
+                    resetAndDisable(kecamatanSelect, '-- Choose Subdistrict --');
+                    resetAndDisable(desaSelect, '-- Choose Village/Ward --');
                     const provinsiId = this.options[this.selectedIndex].dataset.id;
                     if (provinsiId) {
-                        fetch(`${apiBaseUrl}regencies/${provinsiId}.json`)
-                            .then(response => response.json())
-                            .then(regencies => {
-                                kotaSelect.disabled = false;
-                                regencies.forEach(regency => {
-                                    const option = document.createElement('option');
-                                    option.value = regency.name;
-                                    option.dataset.id = regency.id;
-                                    option.textContent = regency.name;
-                                    kotaSelect.appendChild(option);
-                                });
-                            });
+                        populateSelect(kotaSelect, `${apiBaseUrl}regencies/${provinsiId}.json`);
                     }
                 });
 
-                // Event listener untuk Kota/Kabupaten
                 kotaSelect.addEventListener('change', function() {
-                    resetAndDisable(kecamatanSelect, 'Pilih Kecamatan...');
-                    resetAndDisable(desaSelect, 'Pilih Desa/Kelurahan...');
+                    resetAndDisable(kecamatanSelect, '-- Choose Subdistrict --');
+                    resetAndDisable(desaSelect, '-- Choose Village/Ward --');
                     const kotaId = this.options[this.selectedIndex].dataset.id;
                     if (kotaId) {
-                        fetch(`${apiBaseUrl}districts/${kotaId}.json`)
-                            .then(response => response.json())
-                            .then(districts => {
-                                kecamatanSelect.disabled = false;
-                                districts.forEach(district => {
-                                    const option = document.createElement('option');
-                                    option.value = district.name;
-                                    option.dataset.id = district.id;
-                                    option.textContent = district.name;
-                                    kecamatanSelect.appendChild(option);
-                                });
-                            });
+                        populateSelect(kecamatanSelect, `${apiBaseUrl}districts/${kotaId}.json`);
                     }
                 });
 
-                // Event listener untuk Kecamatan
                 kecamatanSelect.addEventListener('change', function() {
-                    resetAndDisable(desaSelect, 'Pilih Desa/Kelurahan...');
+                    resetAndDisable(desaSelect, '-- Choose Village/Ward --');
                     const kecamatanId = this.options[this.selectedIndex].dataset.id;
                     if (kecamatanId) {
-                        fetch(`${apiBaseUrl}villages/${kecamatanId}.json`)
-                            .then(response => response.json())
-                            .then(villages => {
-                                desaSelect.disabled = false;
-                                villages.forEach(village => {
-                                    const option = document.createElement('option');
-                                    option.value = village.name;
-                                    option.dataset.id = village.id;
-                                    option.textContent = village.name;
-                                    desaSelect.appendChild(option);
-                                });
-                            });
+                        populateSelect(desaSelect, `${apiBaseUrl}villages/${kecamatanId}.json`);
                     }
                 });
+
+                async function initializeAddress() {
+                    if (hasAddress && userAddress.provinsi) {
+                        const provinsiId = await populateSelect(provinsiSelect,
+                            `${apiBaseUrl}provinces.json`, userAddress.provinsi);
+                        if (provinsiId && userAddress.kota) {
+                            const kotaId = await populateSelect(kotaSelect,
+                                `${apiBaseUrl}regencies/${provinsiId}.json`, userAddress.kota);
+                            if (kotaId && userAddress.kecamatan) {
+                                const kecamatanId = await populateSelect(kecamatanSelect,
+                                    `${apiBaseUrl}districts/${kotaId}.json`, userAddress.kecamatan);
+                                if (kecamatanId && userAddress.desa) {
+                                    await populateSelect(desaSelect,
+                                        `${apiBaseUrl}villages/${kecamatanId}.json`, userAddress.desa);
+                                }
+                            }
+                        }
+                    } else {
+                        populateSelect(provinsiSelect, `${apiBaseUrl}provinces.json`);
+                    }
+                }
+
+                initializeAddress();
                 });
             </script>
         </section>
