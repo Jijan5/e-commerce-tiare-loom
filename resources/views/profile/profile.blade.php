@@ -416,7 +416,7 @@
                                         {{ __('profile.history_order') }}</h3>
                                     <p class="mt-1 text-sm text-gray-500">{{ __('profile.history_order_desc') }}</p>
                                     <div class="mt-6 space-y-4">
-                                        @forelse ($completedOrders as $order)
+                                        @forelse ($historyOrders as $order)
                                             <a href="{{ route('order.success', $order) }}"
                                                 class="block border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                                                 <div class="flex justify-between items-center">

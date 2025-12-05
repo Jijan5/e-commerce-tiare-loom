@@ -18,14 +18,20 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         $user = $request->user();
-        // Pisahkan pesanan menjadi aktif (pending) dan selesai (selain pending)
-        $activeOrders = Order::where('user_id', $user->id)->where('status', 'pending')->latest()->get();
-        $completedOrders = Order::where('user_id', $user->id)->where('status', '!=', 'pending')->latest()->get();
+        // Ambil pesanan yang masih aktif (bukan 'selesai' atau 'dibatalkan')
+        $activeOrders = $user->orders()
+            ->whereNotIn('status', ['selesai', 'dibatalkan'])
+            ->latest()->get();
+
+        // Ambil pesanan yang sudah masuk riwayat ('selesai' atau 'dibatalkan')
+        $historyOrders = $user->orders()
+            ->whereIn('status', ['selesai', 'dibatalkan'])
+            ->latest()->get();
 
         return view('profile.profile', [
             'user' => $user,
             'activeOrders' => $activeOrders,
-            'completedOrders' => $completedOrders,
+            'historyOrders' => $historyOrders,
         ]);
     }
 

@@ -66,6 +66,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Routes for authenticated admins
     Route::middleware(\App\Http\Middleware\AdminMiddleware::class)->group(function () {
         Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('data-orderan', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('data-orderan');
         Route::post('logout', [\App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('logout');
+
+        // Rute untuk manajemen order
+        Route::get('orderan-dikerjakan', [\App\Http\Controllers\Admin\OrderController::class, 'dikerjakan'])->name('orders.dikerjakan');
+        Route::get('orderan-dikirim', [\App\Http\Controllers\Admin\OrderController::class, 'dikirim'])->name('orders.dikirim');
+        Route::get('orderan-selesai', [\App\Http\Controllers\Admin\OrderController::class, 'selesai'])->name('orders.selesai');
+        Route::get('orderan-dibatalkan', [\App\Http\Controllers\Admin\OrderController::class, 'dibatalkan'])->name('orders.dibatalkan');
+        Route::get('orders/{order}/edit', [\App\Http\Controllers\Admin\OrderController::class, 'edit'])->name('orders.edit');
+        Route::put('orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'update'])->name('orders.update');
+        Route::post('orders/{order}/process', [\App\Http\Controllers\Admin\OrderController::class, 'process'])->name('orders.process');
+        Route::post('orders/{order}/cancel', [\App\Http\Controllers\Admin\OrderController::class, 'cancel'])->name('orders.cancel');
+        Route::delete('orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('orders.destroy');
     });
 });
