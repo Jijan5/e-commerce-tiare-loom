@@ -76,7 +76,9 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 </p>
 
 This flowchart diagram explains the user workflow. Users can place orders without having to log in or register first. However, for a more personalized experience, they can create an account to access additional features such as saving shipping addresses and viewing order history.
-**Condition**: **IF** the user is not logged in, they can only place orders without saving shipping addresses. **ELSE**, if the user is logged in, they can save shipping addresses and view order history.
+
+**Condition**: 
+**IF** the user is not logged in, they can only place orders without saving shipping addresses. **ELSE**, if the user is logged in, they can save shipping addresses and view order history.
 **BUT** when the user not logged but they order, after user click **Order Now** there's a **Modal** that ask user to login or continue as guest.
 
 ## Diagram Explanation
