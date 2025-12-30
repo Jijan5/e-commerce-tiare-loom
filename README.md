@@ -79,7 +79,7 @@ This flowchart diagram explains the user workflow. Users can place orders withou
 **Condition**: **IF** the user is not logged in, they can only place orders without saving shipping addresses. **ELSE**, if the user is logged in, they can save shipping addresses and view order history.
 **BUT** when the user not logged but they order, after user click **Order Now** there's a **Modal** that ask user to login or continue as guest.
 
-### Diagram Explanation
+## Diagram Explanation
 
 <p alight="center">
 <img src="public/images-readme/tiare-loom-diagram.png" width="300" alt="Diagram">
