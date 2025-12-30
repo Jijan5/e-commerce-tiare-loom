@@ -75,7 +75,33 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 <img src="public/images-readme/tiare-loom.drawio.png" width="300" alt="Diagram">
 </p>
 
-This flowchart diagram explains the user workflow. Users can place orders without having to log in or register first.
+This flowchart diagram explains the user workflow. Users can place orders without having to log in or register first. However, for a more personalized experience, they can create an account to access additional features such as saving shipping addresses and viewing order history.
+**Condition**: **IF** the user is not logged in, they can only place orders without saving shipping addresses. **ELSE**, if the user is logged in, they can save shipping addresses and view order history.
+**BUT** when the user not logged but they order, after user click **Order Now** there's a **Modal** that ask user to login or continue as guest.
+
+### Diagram Explanation
+
+<p alight="center">
+<img src="public/images-readme/tiare-loom-diagram.png" width="300" alt="Diagram">
+</p>
+
+The diagram illustrates the high-level architecture and user flow of the **Tiare Loom** application. It outlines the interactions between the two main actors (User and Admin) and the core system components.
+
+**1. Actors & Core Interaction:**
+
+*   **User (Customer)**: Interacts with the public-facing website. They can register, log in (using email/password or Google), view the product gallery, manage their profile and addresses, and place custom orders.
+*   **Admin**: Manages the application's backend through a dedicated admin panel. Their primary role is to oversee and process incoming orders.
+
+**2. System Flow:**
+
+*   **Frontend**: The user-facing part of the application, built with Laravel Blade and styled with Tailwind CSS. This is where users browse the gallery and manage their accounts.
+*   **Backend (Laravel API)**: The core logic of the application. It handles:
+    *   **Authentication**: Manages secure login for both users and admins. It also integrates with Google's OAuth service for social logins.
+    *   **User & Profile Management**: Handles user data, including personal information and shipping addresses.
+    *   **Order Management**: Processes order creation, and allows the admin to update order statuses (e.g., from `Pending` to `Dikerjakan`, `Dikirim`, and `Selesai`).
+*   **Database**: The central repository for all application data, including `users`, `admins`, `orders`, and other related information.
+
+This flow ensures a clear separation between the customer's shopping experience and the administrative tasks, creating a robust and manageable e-commerce system.
 
 ### Key Features
 
