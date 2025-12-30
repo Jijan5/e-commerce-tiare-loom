@@ -57,3 +57,33 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
+
+## About Tiare Loom
+
+**Tiare Loom** is a dedicated e-commerce and portfolio platform designed for a boutique brand specializing in handcrafted beads bags. This application serves as a digital storefront where customers can explore the artisan's gallery, place custom orders, and manage their profiles.
+
+### Key Features
+
+-   **Artisan Showcase**: A beautiful landing page featuring the artisan's story ("From Passion to Product") and a dynamic gallery of past works integrated via LightWidget.
+-   **User Accounts**: Secure registration and login system, including **Google OAuth** integration for seamless access.
+-   **Profile Management**: Users can manage their personal information, save detailed shipping addresses (Province, City, District, Village), and view order history.
+-   **Custom Orders**: Functionality for users to browse and request custom-made bags tailored to their preferences.
+-   **Responsive Design**: Built with **Tailwind CSS** to ensure a modern and responsive experience across all devices.
+
+### Installation
+
+1.  Clone the repository.
+2.  Install PHP dependencies: `composer install`.
+3.  Install frontend dependencies: `npm install && npm run build`.
+4.  Copy the environment file: `cp .env.example .env`.
+5.  Configure your database and Google Client credentials in the `.env` file.
+6.  Generate the application key: `php artisan key:generate`.
+7.  Run migrations and seeders: `php artisan migrate --seed`.
+8.  Start the local server: `php artisan serve`.
+
+## Learning Laravel
+
+Laravel has the most extensive and thorough documentation and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out Laravel Learn, where you will be guided through building a modern Laravel application.
