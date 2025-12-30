@@ -63,6 +63,10 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## About Tiare Loom
 
+<p alight="center">
+<img src="{{ asset('images/tiare-logo.jpg') }}"/>
+</p>
+
 **Tiare Loom** is a dedicated e-commerce and portfolio platform designed for a boutique brand specializing in handcrafted beads bags. This application serves as a digital storefront where customers can explore the artisan's gallery, place custom orders, and manage their profiles.
 
 ### Key Features
