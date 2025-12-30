@@ -72,7 +72,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 ## Flowchart Diagram
 
 <p alight="center">
-<img src="public/images-readme/tiare-loom.drawio.png" width="300" alt="Diagram">
+<img src="public/images-readme/tiare-loom.drawio.png" width="500" alt="Diagram">
 </p>
 
 This flowchart diagram explains the user workflow. Users can place orders without having to log in or register first. However, for a more personalized experience, they can create an account to access additional features such as saving shipping addresses and viewing order history.
@@ -82,7 +82,7 @@ This flowchart diagram explains the user workflow. Users can place orders withou
 ## Diagram Explanation
 
 <p alight="center">
-<img src="public/images-readme/tiare-loom-diagram.png" width="300" alt="Diagram">
+<img src="public/images-readme/tiare-loom-diagram.png" width="500" alt="Diagram">
 </p>
 
 The diagram illustrates the high-level architecture and user flow of the **Tiare Loom** application. It outlines the interactions between the two main actors (User and Admin) and the core system components.
