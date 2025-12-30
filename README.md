@@ -126,3 +126,11 @@ This flow ensures a clear separation between the customer's shopping experience 
 ## Learning Laravel
 
 Laravel has the most extensive and thorough documentation and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out Laravel Learn, where you will be guided through building a modern Laravel application.
+
+## Demo user not logged in
+https://github.com/user-attachments/assets/fd8ad548-6fa0-4cf4-89ce-5bd75a65c644
+
+## Demo user logged in
+https://github.com/user-attachments/assets/196ba7e7-4d38-4741-8a1c-e619a70d238e
+
+
