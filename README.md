@@ -63,7 +63,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## About Tiare Loom
 
-<p alight="center">
+<p align="center">
 <img src="public/images/tiare-logo.jpg" width="300" alt="Tiare Loom Logo">
 </p>
 
@@ -71,7 +71,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Flowchart Diagram
 
-<p alight="center">
+<p align="center">
 <img src="public/images-readme/tiare-loom.drawio.png" width="500" alt="Diagram">
 </p>
 
@@ -81,7 +81,7 @@ This flowchart diagram explains the user workflow. Users can place orders withou
 
 ## Diagram Explanation
 
-<p alight="center">
+<p align="center">
 <img src="public/images-readme/tiare-loom-diagram.png" width="500" alt="Diagram">
 </p>
 
@@ -120,7 +120,8 @@ This flow ensures a clear separation between the customer's shopping experience 
 5.  Configure your database and Google Client credentials in the `.env` file.
 6.  Generate the application key: `php artisan key:generate`.
 7.  Run migrations and seeders: `php artisan migrate --seed`.
-8.  Start the local server: `php artisan serve`.
+8.  Start Vite: `npm run dev`.
+9.  Start the local server: `php artisan serve`, or use **Laragon** just click **Start** button.
 
 ## Learning Laravel
 
